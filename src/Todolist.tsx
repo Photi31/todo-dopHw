@@ -23,10 +23,10 @@ export function Todolist(props: PropsType) {
     let tasksForTodolist = props.tasks;
 
     if (filter === "active") {
-        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+        tasksForTodolist = props.tasks.filter(t => !t.isDone);
     }
     if (filter === "completed") {
-        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+        tasksForTodolist = props.tasks.filter(t => t.isDone);
     }
     if (filter === "three") {
         tasksForTodolist = props.tasks.filter(t => props.tasks.indexOf(t) < 3);
