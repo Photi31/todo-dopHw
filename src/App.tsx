@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import axios from "axios";
 
 // Hi guys! Let`s reinforce our session:
 
@@ -42,33 +43,50 @@ type PropsType=
 function App() {
     const [todos, setTodos] = useState<Array<PropsType>>([])
 
+    const axiosGet = () => {
+        axios.get('https://jsonplaceholder.typicode.com/todos')
+            .then((res) => {
+                setTodos(res.data)
+            })
+    }
+
     useEffect(()=>{
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then(json => setTodos(json))
+        axiosGet()
+    //     fetch('https://jsonplaceholder.typicode.com/todos')
+    //         .then(response => response.json())
+    //         .then(json => setTodos(json))
     },[])
 
+
     const onClickHandler = () => {
+        console.log('close')
         setTodos([])
+    }
+
+
+
+    const mapTodos = todos.map(el => todos.map(el => {
+        return (
+            <li>
+                <span>{el.id} - </span>
+                <span>{el.title}</span>
+                <span>{el.completed}</span>
+            </li>
+        )
+    }))
+
+    const onOpenClickHandler = () => {
+        console.log('open')
+        axiosGet()
     }
 
     return (
         <div className="App">
             <button onClick={onClickHandler}>CLEAN POSTS</button>
+            <button onClick={onOpenClickHandler}>OPEN POSTS</button>
             <ul>
-                {todos.map(el => {
-                    return (
-                        <li>
-                            <span>{el.id} - </span>
-                            <span>{el.title}</span>
-                            <span>{el.completed}</span>
-                        </li>
-                    )
-                })}
-
+                {mapTodos}
             </ul>
-
-
         </div>
     );
 }
