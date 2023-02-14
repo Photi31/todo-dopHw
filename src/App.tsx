@@ -59,13 +59,14 @@ function App() {
 
 
     const onClickHandler = () => {
-        console.log('close')
         setTodos([])
     }
 
+    const onOpenClickHandler = () => {
+        axiosGet()
+    }
 
-
-    const mapTodos = todos.map(el => todos.map(el => {
+    const mapTodos = todos.map(el => {
         return (
             <li>
                 <span>{el.id} - </span>
@@ -73,12 +74,7 @@ function App() {
                 <span>{el.completed}</span>
             </li>
         )
-    }))
-
-    const onOpenClickHandler = () => {
-        console.log('open')
-        axiosGet()
-    }
+    })
 
     return (
         <div className="App">
